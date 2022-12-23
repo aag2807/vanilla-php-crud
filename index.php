@@ -7,7 +7,6 @@
 
     $app->get("/",  function($ctx) use ($contactsController) 
     {
-        //string to int
         $idToSearch = (int)$ctx->query["id"];
         $contactsController->GetContactById($idToSearch);
     } );
