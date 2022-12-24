@@ -11,7 +11,7 @@
         {
             header('Content-Type: application/json');
             echo json_encode(array(
-                ...$data, 
+                'data'=> $data, 
                 'status' => 200,
                 'code' => 'OK'
             ));
@@ -21,7 +21,7 @@
         {
             header('Content-Type: application/json');
             echo json_encode(array(
-                ...$data, 
+                'data'=> $data, 
                 'status' => 202,
                 'code' => 'Accepted'
             ));
@@ -31,7 +31,7 @@
         {
             header('Content-Type: application/json');
             echo json_encode(array(
-                ...$data,
+                'data'=> $data, 
                 'status' => 400,
                 'code' => 'Bad Request'
             ));
@@ -41,7 +41,7 @@
         {
             header('Content-Type: application/json');
             echo json_encode(array(
-                ...$data, 
+                'data'=> $data, 
                 'status' => 404,
                 'code' => 'Not Found'
             ));
@@ -51,7 +51,7 @@
         {
             header('Content-Type: application/json');
             echo json_encode(array(
-                ...$data, 
+                'data'=> $data, 
                 'status' => 500,
                 'code' => 'Internal Server Error'
             ));
@@ -61,7 +61,7 @@
         {
             header('Content-Type: application/json');
             echo json_encode(array(
-                ...$data, 
+                'data'=> $data, 
                 'status' => 501,
                 'code' => 'Not Implemented'
             ));
@@ -71,9 +71,19 @@
         {
             header('Content-Type: application/json');
             echo json_encode(array(
-                ...$data, 
+                'data'=> $data, 
                 'status' => 401,
                 'code' => 'Unauthorized'
+            ));
+        }
+
+        protected function NoContent()
+        {
+            header('Content-Type: application/json');
+            echo json_encode(array(
+                'data'=> null, 
+                'status' => 204,
+                'code' => 'No Content'
             ));
         }
     }

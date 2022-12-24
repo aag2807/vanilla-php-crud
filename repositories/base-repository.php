@@ -7,7 +7,7 @@
 
         protected function __construct(string $tableName) 
         {
-           $this->db = new PDO('sqlite:' . __DIR__ .'/test.db', null, null);
+           $this->db = new PDO('sqlite:' . __DIR__ .'/../test.db', null, null);
            $this->table = $tableName;
         }
     }

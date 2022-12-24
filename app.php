@@ -5,13 +5,15 @@ class Context
     public $method;
     public $params;
     public $query;
+    public $body;
 
-    public function __construct($path, $method, $params, $query)
+    public function __construct($path, $method, $params, $query, $body = null)
     {
         $this->path = $path;
         $this->method = $method;
         $this->params = $params;
         $this->query = $query;
+        $this->body = $body;
     }
 }
 
@@ -37,8 +39,10 @@ class App
 
             $method = $_SERVER['REQUEST_METHOD'];
             $function = $this->routes[$method][$path];
+            $body = $method == 'POST' ? $this->parseBody() : null;
 
-            $ctx = new Context($path, $method, $_REQUEST, $_GET);
+            $ctx = new Context($path, $method, $_REQUEST, $_GET, $body);
+
             $function($ctx);
         } catch (Exception $e) {
             echo json_encode(array(
@@ -67,5 +71,12 @@ class App
     public function delete($path, $function)
     {
         $this->routes["DELETE"][$path] = $function;
+    }
+
+    private function parseBody()
+    {
+        $body = file_get_contents('php://input');
+        $body = json_decode($body, true);
+        return $body;
     }
 }

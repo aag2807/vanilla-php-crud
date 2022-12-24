@@ -1,6 +1,6 @@
 <?php 
     require __DIR__ . '/base-repository.php';
-    require __DIR__ . '/models/contact-model.php';
+    require __DIR__ . '/../models/contact-model.php';
 
     class ContactsRepository extends BaseRepository
     {
@@ -53,7 +53,8 @@
         
         public function create($entity = new Contact(1,'','','','')):int
         {
-            $sql = "INSERT INTO ". $this->table . " (contact_id, first_name, last_name, email, phone) VALUES (:value1, value2:, :value3, value4:, :value5)";
+            $sql = 'INSERT INTO '. $this->table .' (contact_id, first_name, last_name, email, phone) VALUES (:value1, :value2, :value3, :value4, :value5)';
+
             $stmt = $this->db->prepare($sql);
 
             $stmt->bindValue(':value1', $entity->contact_id, PDO::PARAM_STR);

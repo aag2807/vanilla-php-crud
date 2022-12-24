@@ -1,7 +1,7 @@
 <?php 
     require __DIR__ . '/base-controller.php';
     require __DIR__ . '/../lib/arguments.php';
-    require __DIR__ . '/../contacts-repository.php';
+    require __DIR__ . '/../repositories/contacts-repository.php';
 
     class ContactsController extends BaseController
     {
@@ -18,5 +18,29 @@
             $contact = $this->repo->getById($id);
             
             $this->Ok($contact->toDto());
+        }
+
+        public function GetAllContacts()
+        {
+            $contacts = $this->repo->getAll();
+            $dtos = [];
+            foreach($contacts as $contact) {
+                $dtos[] = $contact->toDto();
+            }
+
+            $this->Ok($dtos);
+        }
+
+        public function CreateContact($contactDto = null)
+        {
+            $contact = Contact::fromDto($contactDto);
+            $insertedID = $this->repo->create($contact);
+            $this->Accepted($insertedID);
+        }
+
+        public function deleteContact($id = -1)
+        {
+            $this->repo->delete($id);
+            $this->NoContent();
         }
     }

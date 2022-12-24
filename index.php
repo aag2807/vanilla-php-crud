@@ -11,4 +11,21 @@
         $contactsController->GetContactById($idToSearch);
     } );
 
+    $app->get("/all", function($ctx) use ($contactsController) 
+    {
+        $contactsController->GetAllContacts();
+    } );
+
+    $app->post("/persist", function($ctx) use ($contactsController)
+    {
+        $contactDto = $ctx->body;
+        $contactsController->CreateContact($contactDto);
+    } );
+
+    $app->delete("/delete", function($ctx) use ($contactsController)
+    {
+        $idToSearch = (int)$ctx->query["id"];
+        $contactsController->deleteContact($idToSearch);
+    } );
+
     $app->listen();

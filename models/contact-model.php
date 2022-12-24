@@ -37,4 +37,16 @@
                 'phone' => $this->phone
             ];
         }
+
+        public static function fromDTO($dto)
+        {
+            return new Contact(
+                $dto['contact_id'],
+                $dto['first_name'],
+                $dto['last_name'],
+                $dto['email'],
+                $dto['phone']
+            );
+        }
+         
     }
