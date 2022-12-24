@@ -1,6 +1,7 @@
 <?php 
     require __DIR__ . '/base-repository.php';
     require __DIR__ . '/../models/contact-model.php';
+    require_once __DIR__ . '/../models/valueObjects/id.php';
 
     class ContactsRepository extends BaseRepository
     {
@@ -32,15 +33,15 @@
             return $contacts;
         }
         
-        public function getById($id = 0)
+        public function getById($id)
         {
             $sql = "SELECT * FROM contacts WHERE contact_id = :value";
             $stmt = $this->db->prepare($sql);
-            $stmt->bindValue(':value', $id, PDO::PARAM_INT);
+            $stmt->bindValue(':value', $id->value(), PDO::PARAM_INT);
             $stmt->execute();
             $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
-            Arguments::NotNull($result, ": there exists not contact with the id of: " . $id);
+            Arguments::NotNull($result, ": there exists not contact with the id of: " . $id->value());
 
             return Contact::fromData(
                 $result['contact_id'], 
@@ -90,11 +91,11 @@
             return $stmt->execute();
         }
         
-        public function delete($id = 0): void
+        public function delete($id): void
         {
             $sql = "DELETE FROM " .$this->table . " WHERE contact_id = :value" ;
             $stmt = $this->db->prepare($sql);
-            $stmt->bindValue(':value', $id, PDO::PARAM_INT);
+            $stmt->bindValue(':value', $id->value(), PDO::PARAM_INT);
             $stmt->execute();
         }
     }

@@ -18,4 +18,14 @@
 
             return;
         }
+
+        public static function GreaterThan($arg, $min, $msg = "")
+        {
+            if($arg <= $min)
+            {
+                throw new Exception(Arguments::varName($arg) . " ". $msg);
+            }
+
+            return;
+        }
     }

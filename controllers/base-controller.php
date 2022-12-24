@@ -1,10 +1,12 @@
 <?php
 
+    /**
+     * The base controller used to implement basic return functions
+     */
     class BaseController 
     {
         function __construct()
         {
-            
         }
 
         protected function Ok($data)
