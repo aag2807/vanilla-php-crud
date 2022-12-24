@@ -1,5 +1,4 @@
 <?php
-
     class BaseRepository 
     {
         protected $db = null;

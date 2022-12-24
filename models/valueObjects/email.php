@@ -1,5 +1,4 @@
 <?php 
-
     class Email
     {
         private string $email;

@@ -1,5 +1,4 @@
 <?php
-
     class Phone
     {
         private string $phone;
