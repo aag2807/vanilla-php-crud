@@ -8,6 +8,7 @@
         function __construct()
         {
         }
+        
         protected function Ok($data)
         {
             header('Content-Type: application/json');

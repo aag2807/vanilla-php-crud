@@ -2,7 +2,7 @@
     require __DIR__ . '/base-controller.php';
     require __DIR__ . '/../lib/arguments.php';
     require __DIR__ . '/../repositories/contacts-repository.php';
-    require_once __DIR__ . '/../models/valueObjects/id.php';
+    require_once __DIR__ . '/../models/contacts/valueObjects/id.php';
 
     /**
      * The Controller responsable for interacting with contacts

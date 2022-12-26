@@ -1,7 +1,7 @@
 <?php 
     require __DIR__ . '/base-repository.php';
-    require __DIR__ . '/../models/contact-model.php';
-    require_once __DIR__ . '/../models/valueObjects/id.php';
+    require __DIR__ . '/../models/contacts/contact-model.php';
+    require_once __DIR__ . '/../models/contacts/valueObjects/id.php';
 
     class ContactsRepository extends BaseRepository
     {

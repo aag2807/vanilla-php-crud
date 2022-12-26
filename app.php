@@ -19,6 +19,8 @@ class Context
 
 class App
 {
+    private static App $instance;
+
     public $routes = array(
         "GET" => array(),
         "POST" => array(),
@@ -78,5 +80,14 @@ class App
         $body = file_get_contents('php://input');
         $body = json_decode($body, true);
         return $body;
+    }
+
+    public static function getInstance()
+    {
+        if ( !isset( self::$instance ) )
+        {
+            self::$instance = new App();
+        }
+        return self::$instance;
     }
 }
