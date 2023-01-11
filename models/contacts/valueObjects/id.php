@@ -1,23 +1,28 @@
-<?php 
-    class Id 
+<?php
+
+namespace models\contacts\valueObjects;
+
+use lib\Arguments;
+
+class Id
+{
+    private int $id;
+
+    private function __construct($id)
     {
-        private int $id;
+        Arguments::NotNull($id, "cannot be null");
+        Arguments::GreaterThan($id, 0, "cannot be equal to or smaller than 0");
 
-        private function __construct($id)
-        {
-            Arguments::NotNull($id, "cannot be null");
-            Arguments::GreaterThan($id, 0, "cannot be equal to or smaller than 0");
-           
-            $this->id = $id;
-        }
-
-        public static function from($int)
-        {
-            return new Id($int);
-        }
-
-        public function value(): int
-        {
-            return $this->id;
-        }
+        $this->id = $id;
     }
+
+    public static function from($int)
+    {
+        return new Id($int);
+    }
+
+    public function value(): int
+    {
+        return $this->id;
+    }
+}

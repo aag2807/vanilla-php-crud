@@ -1,7 +1,8 @@
-<?php 
-    require __DIR__ . '/app.php';
-    require __DIR__ . '/routes/init-routes.php';
+<?php
 
-    InitRoutes();
+use App\App;
+use routes\RouteInitializer;
 
-    App::getInstance()->listen();
+RouteInitializer::InitRoutes();
+
+App::getInstance()->listen();

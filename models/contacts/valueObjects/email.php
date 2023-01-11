@@ -1,23 +1,28 @@
-<?php 
-    class Email
+<?php
+
+namespace models\contacts\valueObjects;
+
+use lib\Arguments;
+
+class Email
+{
+    private string $email;
+
+    private function __construct($email)
     {
-        private string $email;
+        Arguments::NotNull($email, "cannot be null");
+        Arguments::GreaterThan(strlen($email), 0, "cannot be equal to or smaller than 0");
 
-        private function __construct($email)
-        {
-            Arguments::NotNull($email, "cannot be null");
-            Arguments::GreaterThan(strlen($email), 0, "cannot be equal to or smaller than 0");
-            
-            $this->email = $email;
-        }
-
-        public static function from($string)
-        {
-            return new Email($string);
-        }
-
-        public function value(): string
-        {
-            return $this->email;
-        }
+        $this->email = $email;
     }
+
+    public static function from($string)
+    {
+        return new Email($string);
+    }
+
+    public function value(): string
+    {
+        return $this->email;
+    }
+}
