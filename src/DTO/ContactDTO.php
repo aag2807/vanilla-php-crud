@@ -1,7 +1,9 @@
 <?php
 
-use lib\Arguments;
-use lib\ObjectUtil;
+namespace App\DTO;
+
+use App\lib\Arguments;
+use App\lib\ObjectUtil;
 
 class ContactDTO 
 {

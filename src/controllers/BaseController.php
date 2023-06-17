@@ -1,6 +1,6 @@
 <?php
 
-namespace controllers;
+namespace App\controllers;
 
 /**
  * The base controller used to implement basic return functions

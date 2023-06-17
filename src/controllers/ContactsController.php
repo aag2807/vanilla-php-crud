@@ -1,10 +1,10 @@
 <?php
 
-namespace controllers;
+namespace App\controllers;
 
-use models\contacts\Contact;
-use models\contacts\valueObjects\Id;
-use repositories\ContactsRepository;
+use App\repositories\ContactsRepository;
+use App\models\contacts\Contact;
+use App\models\contacts\valueObjects\Id;
 
 /**
  * The Controller responsable for interacting with contacts
@@ -13,7 +13,7 @@ class ContactsController extends BaseController
 {
     private ContactsRepository $repo;
 
-    public function __construct()
+    public function __construct( )
     {
         parent::__construct();
         $this->repo = new ContactsRepository();
@@ -22,8 +22,9 @@ class ContactsController extends BaseController
     public function GetContactById($id = 0): void
     {
         $contact = $this->repo->getById(Id::from($id));
+        $result = $contact->toDto();
 
-        $this->Ok($contact->toDto());
+        $this->Ok($result);
     }
 
     public function GetAllContacts(): void

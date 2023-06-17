@@ -1,9 +1,9 @@
 <?php
 
-namespace repositories;
+namespace App\repositories;
 use PDO;
-use lib\Arguments;
-use models\contacts\Contact;
+use App\lib\Arguments;
+use App\models\contacts\Contact;
 
 class ContactsRepository extends BaseRepository
 {

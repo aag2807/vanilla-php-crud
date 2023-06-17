@@ -1,8 +1,8 @@
 <?php
 
-namespace models\contacts\valueObjects;
+namespace App\models\contacts\valueObjects;
 
-use lib\Arguments;
+use App\lib\Arguments;
 
 class FirstName
 {

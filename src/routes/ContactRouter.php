@@ -1,14 +1,16 @@
 <?php
 
-namespace routes;
+namespace App\routes;
 
-use App\App;
-use controllers\ContactsController;
+use App\App\App;
+use App\controllers\ContactsController;
 
 class ContactRouter
 {
     private $controller;
     private $app;
+
+    const CONTACTS = "/contacts";
 
     public function __construct()
     {
@@ -18,21 +20,21 @@ class ContactRouter
 
     private function registerRoutes()
     {
-        $this->app->get("/", function ($ctx) {
+        $this->app->get(ContactRouter::CONTACTS . "/", function ($ctx) {
             $idToSearch = (int)$ctx->query["id"];
             $this->getController()->GetContactById($idToSearch);
         });
 
-        $this->app->get("/all", function ($ctx) {
+        $this->app->get(ContactRouter::CONTACTS . "/all", function ($ctx) {
             $this->getController()->GetAllContacts();
         });
 
-        $this->app->post("/contacts", function ($ctx) {
+        $this->app->post(ContactRouter::CONTACTS . "/contacts", function ($ctx) {
             $contactDto = $ctx->body;
             $this->getController()->CreateContact($contactDto);
         });
 
-        $this->app->delete("/delete", function ($ctx) {
+        $this->app->delete(ContactRouter::CONTACTS . "/delete", function ($ctx) {
             $idToSearch = (int)$ctx->query["id"];
             $this->getController()->deleteContact($idToSearch);
         });

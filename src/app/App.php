@@ -1,9 +1,9 @@
 <?php
 
-namespace App;
+namespace App\App;
 
 use Exception;
-use lib\Context;
+use App\lib\Context;
 
 class App
 {
@@ -23,7 +23,6 @@ class App
     public function listen()
     {
         try {
-
             $path = $_SERVER['REQUEST_URI'];
             $path = explode("?", $path)[0];
 

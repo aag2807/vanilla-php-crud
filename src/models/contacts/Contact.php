@@ -1,14 +1,14 @@
 <?php
 
 
-namespace models\contacts;
+namespace App\models\contacts;
 
-use ContactDTO;
-use models\contacts\valueObjects\Email;
-use models\contacts\valueObjects\FirstName;
-use models\contacts\valueObjects\Id;
-use models\contacts\valueObjects\LastName;
-use models\contacts\valueObjects\Phone;
+use App\DTO\ContactDTO;
+use App\models\contacts\ValueObjects\Email;
+use App\models\contacts\ValueObjects\FirstName;
+use App\models\contacts\ValueObjects\Id;
+use App\models\contacts\ValueObjects\LastName;
+use App\models\contacts\ValueObjects\Phone;
 
 /**
  * The contact domain entity responsible for representing a Contact in the Domain
