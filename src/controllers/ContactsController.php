@@ -13,10 +13,10 @@ class ContactsController extends BaseController
 {
     private ContactsRepository $repo;
 
-    public function __construct( )
+    public function __construct(ContactsRepository $contactsRepository)
     {
         parent::__construct();
-        $this->repo = new ContactsRepository();
+        $this->repo = $contactsRepository;
     }
 
     public function GetContactById($id = 0): void
@@ -47,7 +47,7 @@ class ContactsController extends BaseController
 
     public function deleteContact($id = -1): void
     {
-        $this->repo->delete(Id::from($id));
+        $this->repo->delete($id);
         $this->NoContent();
     }
 }
