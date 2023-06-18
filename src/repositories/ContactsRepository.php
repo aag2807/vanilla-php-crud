@@ -1,13 +1,13 @@
 <?php
 
 namespace App\repositories;
+
 use PDO;
 use App\lib\Arguments;
 use App\models\contacts\Contact;
 
 class ContactsRepository extends BaseRepository
 {
-
     public function __construct()
     {
         parent::__construct('contacts');
@@ -23,13 +23,7 @@ class ContactsRepository extends BaseRepository
 
         $contacts = [];
         foreach ($result as $row) {
-            $contacts[] = Contact::fromData(
-                $row['contact_id'],
-                $row['first_name'],
-                $row['last_name'],
-                $row['email'],
-                $row['phone']
-            );
+            $contacts[] = Contact::fromData($row);
         }
 
         return $contacts;
@@ -46,11 +40,7 @@ class ContactsRepository extends BaseRepository
         Arguments::NotNull($result, ": there exists not contact with the id of: " . $id->value());
 
         return Contact::fromData(
-            $result['contact_id'],
-            $result['first_name'],
-            $result['last_name'],
-            $result['email'],
-            $result['phone']
+            $result
         );
     }
 
@@ -93,11 +83,15 @@ class ContactsRepository extends BaseRepository
         return $stmt->execute();
     }
 
-    public function delete($id): void
+    /**
+     * Deletes a contact from the database
+     * @param int $id
+     */
+    public function delete(int $id): void
     {
         $sql = "DELETE FROM " . $this->table . " WHERE contact_id = :value";
         $stmt = $this->db->prepare($sql);
-        $stmt->bindValue(':value', $id->value(), PDO::PARAM_INT);
+        $stmt->bindValue(':value', $id, PDO::PARAM_INT);
         $stmt->execute();
     }
 }

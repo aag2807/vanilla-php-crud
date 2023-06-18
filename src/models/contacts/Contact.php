@@ -4,11 +4,8 @@
 namespace App\models\contacts;
 
 use App\DTO\ContactDTO;
-use App\models\contacts\ValueObjects\Email;
-use App\models\contacts\ValueObjects\FirstName;
-use App\models\contacts\ValueObjects\Id;
-use App\models\contacts\ValueObjects\LastName;
-use App\models\contacts\ValueObjects\Phone;
+use App\lib\Arguments;
+use App\lib\ObjectUtil;
 
 /**
  * The contact domain entity responsible for representing a Contact in the Domain
@@ -17,67 +14,48 @@ class Contact
 {
     /**
      * The id of a contact
-     * @var Id
+     * @var string $contact_id
      */
-    public Id        $contact_id;
+    public string $contact_id;
 
     /**
      * The first name of a contact
-     * @var FirstName
+     * @var string $first_name
      */
-    public FirstName $first_name;
+    public string $first_name;
 
     /**
      * The last name of a contact
-     * @var LastName
+     * @var string $last_name
      */
-    public LastName  $last_name;
+    public string $last_name;
 
     /**
      * The email of a contact
-     * @var Email
+     * @var string $email
      */
-    public Email     $email;
+    public string $email;
 
     /**
      * The phone number of a contact
-     * @var Phone
+     * @var string $phone
      */
-    public Phone     $phone;
+    public string $phone;
 
-    private function __construct($id, $first_name, $last_name, $email, $phone)
+    private function __construct($data = [])
     {
-        $this->contact_id = $id;
-        $this->first_name = $first_name;
-        $this->last_name = $last_name;
-        $this->email = $email;
-        $this->phone = $phone;
+        Arguments::NotNull($data, "cannot be null");
+        ObjectUtil::Assign($this, $data);
     }
 
     /**
      * Maps the values passed to the constructor to value objects assigned to the domain entity.
-     * @param mixed $id
-     * @param mixed $first_name
-     * @param mixed $last_name
-     * @param mixed $email
-     * @param mixed $phone
+     * @param array $data
      * @return Contact
      */
-    public static function fromData($id, $first_name, $last_name, $email, $phone): Contact
+    public static function fromData($data): Contact
     {
-        $idValueObject        = Id::from($id);
-        $firstNameValueObject = FirstName::from($first_name);
-        $lastNameValueObject  = LastName::from($last_name);
-        $emailValueObject     = Email::from($email);
-        $phoneValueObject     = Phone::from($phone);
-
-        return new Contact(
-            $idValueObject,
-            $firstNameValueObject,
-            $lastNameValueObject,
-            $emailValueObject,
-            $phoneValueObject
-        );
+        return new Contact( $data );
     }
 
     /**
@@ -86,21 +64,21 @@ class Contact
      */
     public function fullName(): string
     {
-        return $this->first_name->value() . ' ' . $this->last_name->value();
+        return $this->first_name . ' ' . $this->last_name;
     }
 
     /**
-     * Maps a valid contact domain entity to a contact DTO object
-     * @return array
+     * Maps the values of the domain entity to a DTO type object.
+     * @return ContactDTO
      */
     public function toDto()
     {
-        $values =  [
-            'contact_id' => $this->contact_id->value(),
-            'first_name' => $this->first_name->value(),
-            'last_name' => $this->last_name->value(),
-            'email' => $this->email->value(),
-            'phone' => $this->phone->value()
+        $values = [
+            'contact_id' => $this->contact_id,
+            'first_name' => $this->first_name,
+            'last_name' => $this->last_name,
+            'email' => $this->email,
+            'phone' => $this->phone
         ];
 
         return new ContactDTO($values);
@@ -108,17 +86,11 @@ class Contact
 
     /**
      * Maps a DTO type object to a valid Contact domain entity.
-     * @param mixed $dto
+     * @param ContactDTO $dto
      * @return Contact
      */
     public static function fromDTO(ContactDTO $dto): Contact
     {
-        return new Contact(
-            $dto->contact_id,
-            $dto->first_name,
-            $dto->last_name,
-            $dto->email,
-            $dto->phone
-        );
+        return new Contact($dto);
     }
 }

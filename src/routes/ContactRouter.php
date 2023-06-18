@@ -4,6 +4,7 @@ namespace App\routes;
 
 use App\App\App;
 use App\controllers\ContactsController;
+use DI\Container;
 
 class ContactRouter
 {
@@ -43,7 +44,8 @@ class ContactRouter
     private function getController()
     {
         if ($this->controller == null) {
-            $this->controller = new ContactsController();
+            $container = new Container();
+            $this->controller = $container->get(ContactsController::class);
         }
         return $this->controller;
     }

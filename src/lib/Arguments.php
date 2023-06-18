@@ -17,7 +17,11 @@ class Arguments
 
     public static function NotNull(mixed $arg, string $msg = "")
     {
-        if ($arg == null || !isset($arg) || (!$arg && !is_bool($arg))) {
+        if($arg == null || !isset($arg)) {
+            throw new Exception("null argument was passed");
+        }
+
+        if (!$arg && !is_bool($arg)) {
             throw new Exception(Arguments::varName($arg) . " " . $msg);
         }
 
