@@ -21,7 +21,7 @@ class ContactsController extends BaseController
 
     public function GetContactById($id = 0): void
     {
-        $contact = $this->repo->getById(Id::from($id));
+        $contact = $this->repo->getById($id);
         $result = $contact->toDto();
 
         $this->Ok($result);

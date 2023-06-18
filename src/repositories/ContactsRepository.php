@@ -29,15 +29,20 @@ class ContactsRepository extends BaseRepository
         return $contacts;
     }
 
+    /**
+     * Gets a contact by its id
+     * @param int $id
+     * @return Contact
+     */
     public function getById($id)
     {
         $sql = "SELECT * FROM contacts WHERE contact_id = :value";
         $stmt = $this->db->prepare($sql);
-        $stmt->bindValue(':value', $id->value(), PDO::PARAM_INT);
+        $stmt->bindValue(':value', $id, PDO::PARAM_INT);
         $stmt->execute();
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        Arguments::NotNull($result, ": there exists not contact with the id of: " . $id->value());
+        Arguments::NotNull($result, ": there exists not contact with the id of: " . $id);
 
         return Contact::fromData(
             $result
